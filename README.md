@@ -4,7 +4,7 @@
 
 ## Contexte
 
-✏️ *En trois à cinq phrases : qui utilise l'outil, quel problème il résout, ce qu'il ne permet pas de conclure.*
+le journal météorologigue de la ferme est une application créée avec JavaScript et node.js pour faciliter le suivi de la météo au niveau de la ferme pédagogique. elle permet au responsable d'enregistrer chaque jour la température, la quantité de pluie et l'humidité de l'air. Grâce à cette application, il peut retrouver les informations d'une journée, classer les relevés et avoir un résumé des données enregistrées. cependant, les dix jours de relevés permettent seulement d'observer la météo sur une courte période et non de connaître le climat de la région, qui s'étudie généralement sur une période de 30 ans.
 
 ## Prérequis et lancement
 
