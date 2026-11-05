@@ -12,7 +12,43 @@ const FICHIER_DONNEES = 'donnees/releves.json';
 
 async function main() {
   ouvrirSaisie();
-  console.log("À compléter : écrivez le menu dans app.js (fiches/3-ajouter-lister.md).");
+  const releves = await chargerJson(FICHIER_DONNEES);
+console.log(`${releves.length} relevé(s) chargé(s) depuis ${FICHIER_DONNEES}.`);
+  console.log("==============================================");
+  let choix = "";
+do {
+console.log("   JOURNAL MÉTÉOROLOGIQUE DE LA FERME");
+console.log("   Suivi agroclimatique de la ferme pédagogique");
+console.log("==============================================");
+console.log("--------------- MENU ---------------");
+console.log("1. Ajouter un relevé");
+console.log("2. Lister les relevés");const releves = await chargerJson(FICHIER_DONNEES);
+console.log(`${releves.length} relevé(s) chargé(s) depuis ${FICHIER_DONNEES}.`);
+console.log("3. Rechercher (identifiant, date, journées pluvieuses)");
+console.log("4. Trier (température, pluie)");
+console.log("5. Synthèse de la série");
+console.log("0. Quitter");
+  choix = await demander("Votre choix : ");
+  if (choix === null) {
+  console.log("Saisie interrompue. Au revoir !");
+  break;
+}
+if (choix === "0") {
+console.log("Au revoir !");
+} else if (choix === "2") {
+console.log("----- LISTE DES RELEVÉS -----");
+  console.log(listerReleves(releves));
+} else {
+console.log("Option pas encore disponible.");
+}
+console.log("--------------------------------");
+} while (choix !== "0");
+
+
+
+
+
+
   fermerSaisie();
 }
 
