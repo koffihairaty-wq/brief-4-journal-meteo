@@ -7,6 +7,7 @@ import { chargerJson, enregistrerJson } from './src/stockage.js';
 import { ajouterReleve, formaterReleve, listerReleves, trouverParId } from './src/registre.js';
 import { SEUIL_JOUR_PLUVIEUX, joursPluvieux, trierParPluie, trierParTemperature, trouverParDate } from './src/recherche.js';
 import { cumulPluie, moyenneTemperature, temperatureMinMax } from './src/synthese.js';
+import { supprimerReleve, modifierReleve, trierParTemperatureDecroissante, journeeLaPlusChaude} from './src/bonus.js';
 
 const FICHIER_DONNEES = 'donnees/releves.json';
 
@@ -26,6 +27,8 @@ console.log("2. Lister les relevés");
 console.log("3. Rechercher (identifiant, date, journées pluvieuses)");
 console.log("4. Trier (température, pluie)");
 console.log("5. Synthèse de la série");
+console.log("6. Supprimer un relevé");
+console.log("7. Modifier un relevé");
 console.log("0. Quitter");
   choix = await demander("Votre choix : ");
   if (choix === null) {
@@ -121,6 +124,31 @@ if (choixRecherche === "1") {
   console.log(`Température minimale : ${temperatures.min === null ? "Aucune donnée" : temperatures.min + " °C"}`);
   console.log(`Température maximale : ${temperatures.max === null ? "Aucune donnée" : temperatures.max + " °C"}`);
   console.log(`Journées avec au moins 10 mm de pluie : ${jours.length}`);
+} else if (choix === "6") {
+  console.log("----- SUPPRIMER UN RELEVÉ -----");
+  const id = (await demander("Identifiant : ")).toUpperCase();
+  const releveSupprime = supprimerReleve(releves, id);
+  if (releveSupprime === undefined) {
+    console.log(`Relevé ${id} introuvable.`);
+  } else {
+    await enregistrerJson(FICHIER_DONNEES, releves);
+    console.log(`Relevé ${id} supprimé. Le journal compte ${releves.length} relevé(s).`);
+  } 
+} else if (choix === "7") {
+  console.log("----- MODIFIER UN RELEVÉ -----");
+  const id = (await demander("Identifiant : ")).toUpperCase();
+  const champ = await demander("Champ à modifier (date, temperatureC, pluieMm, humiditeAirPct) : ");
+  const valeur = await demander("Nouvelle valeur : ");
+  const erreurs = modifierReleve(releves, id, champ, valeur);
+  if (erreurs.length > 0) {
+    console.log("Modification refusée :");
+    for (const erreur of erreurs) {
+      console.log(`  - ${erreur}`);
+    }
+  } else {
+    await enregistrerJson(FICHIER_DONNEES, releves);
+    console.log(`Relevé ${id} modifié.`);
+}
 } else {
   console.log("Choix invalide.");
 }
