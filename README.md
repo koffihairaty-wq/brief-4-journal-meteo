@@ -1,7 +1,5 @@
 # Journal météorologique de la ferme
 
-> Projet individuel du SAS DFS, brief 4 (sujet : [SUJET.md](SUJET.md)). Remplacez chaque ✏️ par votre texte, puis supprimez cette ligne.
-
 ## Contexte
 
 Le Journal météorologique de la ferme est une application créée avec JavaScript et Node.js pour faciliter le suivi de la météo au niveau de la ferme pédagogique. Elle permet au responsable d'enregistrer chaque jour la température, la quantité de pluie et l'humidité de l'air.
