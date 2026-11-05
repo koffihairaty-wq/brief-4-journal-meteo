@@ -35,6 +35,28 @@ console.log("0. Quitter");
 }
 if (choix === "0") {
 console.log("Au revoir !");
+} else if (choix === "1") {
+ console.log("----- AJOUTER UN RELEVÉ -----");
+  const id = await demander("Identifiant : ");
+  const date = await demander("Date (AAAA-MM-JJ) : ");
+  const temperatureC = await demander("Température (°C) : ");
+  const pluieMm = await demander("Pluie (mm) : ");
+  const humiditeAirPct = await demander("Humidité de l'air (%) : ");
+  const saisie = {
+    id,
+    date,
+    temperatureC: Number(temperatureC),
+    pluieMm: Number(pluieMm),
+    humiditeAirPct: Number(humiditeAirPct)
+  };
+  const erreurs = ajouterReleve(releves, saisie);
+  if (erreurs.length > 0) {
+    console.log("Relevé refusé :");
+    console.log(erreurs.join("\n"));
+  } else {
+    await enregistrerJson(FICHIER_DONNEES, releves);
+    console.log("Relevé ajouté et enregistré avec succès !");
+  }
 } else if (choix === "2") {
 console.log("----- LISTE DES RELEVÉS -----");
   console.log(listerReleves(releves));
